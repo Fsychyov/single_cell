@@ -116,9 +116,11 @@ sc.pp.log1p(adata68)
 
 
 ####highly_variable_only
-
+adata53.raw = adata53
 sc.pp.highly_variable_genes(adata53, n_top_genes=3000)
 adata53 = adata53[:, adata53.var.highly_variable]
 
+
+adata68.raw = adata68
 sc.pp.highly_variable_genes(adata68, n_top_genes=3000)
 adata68 = adata68[:, adata68.var.highly_variable]

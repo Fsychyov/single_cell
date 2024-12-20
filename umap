@@ -1,0 +1,16 @@
+markers = ["NEUROD1", "POU2F3", "HLA-DRB1", "HLA-DQA1", "ASCL1", "YAP1"] #found in article
+
+sc.pp.neighbors(adata53, n_neighbors=10, n_pcs=40)
+sc.tl.umap(adata53)
+sc.tl.leiden(adata53)
+sc.pl.umap(adata53, color = ['leiden', "doublet_score"] + markers)
+
+
+sc.pp.neighbors(adata68, n_neighbors=10, n_pcs=40)
+sc.tl.umap(adata68)
+sc.tl.leiden(adata68)
+sc.pl.umap(adata68, color = ['leiden', "doublet_score"] + markers)
+
+
+adata_reference = sp.datasets.pbmcs_10x_reference() #compare to immune cells
+sc.pl.umap(adata_reference, color="cell_type")

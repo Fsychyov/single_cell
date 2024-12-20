@@ -14,3 +14,28 @@ sc.pl.umap(adata68, color = ['leiden', "doublet_score"] + markers)
 
 adata_reference = sp.datasets.pbmcs_10x_reference() #compare to immune cells
 sc.pl.umap(adata_reference, color="cell_type")
+
+adata_query53 = adata53.raw.to_adata()
+adata_query53
+
+adata_query68 = adata68.raw.to_adata()
+adata_query68
+
+sp.tl.map_embedding(adata_query53, adata_reference)
+sp.tl.per_cell_confidence(adata_query53, adata_reference)
+sp.tl.transfer_labels_kNN(adata_query53, adata_reference, ref_labels=["cell_type"])
+
+sp.tl.map_embedding(adata_query68, adata_reference)
+sp.tl.per_cell_confidence(adata_query68, adata_reference)
+sp.tl.transfer_labels_kNN(adata_query68, adata_reference, ref_labels=["cell_type"])
+
+
+sc.pl.umap(adata_query53, color=["cell_type", "leiden", "doublet_score"])
+sc.tl.rank_genes_groups(adata53, groupby="leiden")
+df = sc.get.rank_genes_groups_df(adata53, group="1")
+df[(df.logfoldchanges > 2) & (df.pvals_adj <= 1e-20)]
+
+sc.pl.umap(adata_query68, color=["cell_type", "leiden", "doublet_score"])
+sc.tl.rank_genes_groups(adata68, groupby="leiden")
+df = sc.get.rank_genes_groups_df(adata68, group="2")
+df[(df.logfoldchanges > 2) & (df.pvals_adj <= 1e-20)]

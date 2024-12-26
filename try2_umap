@@ -129,3 +129,6 @@ sc.pp.neighbors(adata_combined, n_neighbors=10, n_pcs=30)
 sc.tl.umap(adata_combined)
 sc.tl.leiden(adata_combined)
 sc.pl.umap(adata_combined, color = ['leiden', "cell_type"])
+
+sc.tl.rank_genes_groups(adata_combined, "cell_type", method = "wilcoxon")
+sc.pl.rank_genes_groups(adata_combined, n_genes = 10)

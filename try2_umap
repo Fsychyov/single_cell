@@ -105,9 +105,9 @@ def assign_cell_type(adata, var_column):
         mouse_expression = np.sum(cell_genes[gene_labels == 'mouse'])
         human_expression = np.sum(cell_genes[gene_labels == 'human'])
 
-        if mouse_expression > human_expression #+ 200:
+        if mouse_expression > human_expression:#+ 200:
             adata.obs.at[cell, 'cell_type'] = 'mouse'
-        elif mouse_expression <  human_expression #- 200:
+        elif mouse_expression <  human_expression:#- 200:
             adata.obs.at[cell, 'cell_type'] = 'human'
         else:
           adata.obs.at[cell, 'cell_type'] = 'unknown'

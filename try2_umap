@@ -96,7 +96,6 @@ sc.pl.umap(adata_human, color = ['leiden'])
 adata_combined = anndata.concat([adata_mouse, adata_human], axis = 1)
 
 def assign_cell_type(adata, var_column):
-    # Initialize the 'cell_type' column in adata.obs
     adata.obs['cell_type'] = 'unknown'
 
     for cell in adata.obs.index:

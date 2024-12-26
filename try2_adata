@@ -1,0 +1,43 @@
+!pip install scanpy[leiden] harmonypy symphonypy bbknn scrublet
+!pip install kb-python
+import scanpy as sc
+import pandas as pd
+from scipy.io import mmread
+from scipy import sparse
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.sparse import csr_matrix
+import scrublet as scr
+import scanpy.external as sce
+import symphonypy as sp
+import anndata
+!wget https://cf.10xgenomics.com/samples/cell-exp/6.1.0/500_hgmm_3p_LT_Chromium_X/500_hgmm_3p_LT_Chromium_X_fastqs.tar
+!tar -xvf 500_hgmm_3p_LT_Chromium_X_fastqs.tar
+!kb ref -d mouse -i index_mouse.txt -g t2g_mouse.txt
+!kb ref -d human -i index_human.txt -g t2g_human.txt
+
+!kb count -x 10xv2 --h5ad -o output_dir_mouse_h5 -i index_mouse.txt -g t2g_mouse.txt \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_I1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_I2_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_R1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_R2_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_I1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_I2_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_R1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_R2_001.fastq.gz
+
+
+!kb count -x 10xv2 --h5ad -o output_dir_human_h5 -i index_human.txt -g t2g_human.txt \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_I1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_I2_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_R1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L003_R2_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_I1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_I2_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_R1_001.fastq.gz \
+/content/500_hgmm_3p_LT_Chromium_X_fastqs/500_hgmm_3p_LT_Chromium_X_S2_L004_R2_001.fastq.gz
+
+
+adata_human = sc.read("/content/output_dir_human_h5/counts_unfiltered/adata.h5ad")
+adata_mouse = sc.read("/content/output_dir_mouse_h5/counts_unfiltered/adata.h5ad")

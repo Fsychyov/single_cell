@@ -1,0 +1,17 @@
+!pip install scanpy[leiden] harmonypy symphonypy bbknn scrublet
+!gdown 1zh9U1uvKxSpsEPDygcRyN-3N64jSgNv6
+!gdown 1gw2FA_-BEg5Qyi5WTtukgXIlgi59VNZN
+!gdown 1HUDJmCVeukCV_F9JIIHpMw15-WmlOzB4
+!gdown 1Zx_u0AxsxNl3oqZfBSyDkC-0Azt23OZV
+import scanpy as sc
+import pandas as pd
+from scipy.io import mmread
+from scipy import sparse
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.sparse import csr_matrix
+import scrublet as scr
+import scanpy.external as sce
+import symphonypy as sp
+import anndata as ad

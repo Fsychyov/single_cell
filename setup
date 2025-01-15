@@ -1,17 +1,1 @@
-!pip install scanpy[leiden] harmonypy symphonypy bbknn scrublet
-import scanpy as sc
-import pandas as pd
-from scipy.io import mmread
-from scipy import sparse
-import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.sparse import csr_matrix
-import scrublet as scr
-import scanpy.external as sce
-import symphonypy as sp
-!gdown "1yCM7OFUM_7DOMaMQQe8De3EED2dI2uok"
-!gdown "1Qlxe-dpggzKlp-HJ9AujFKnif0IYgUdH"
-!tar -xvzf GSM4104165_SC68_veh.LB19002.matrix.tar.gz
-!tar -xvzf GSM4851438_SC53.matrix.tar.gz
-sc.settings.verbosity = 3
+

@@ -1,0 +1,41 @@
+sc.pp.scale(adata_human, max_value=10)
+sc.tl.pca(adata_human, use_highly_variable=True)
+sc.pp.neighbors(adata_human, n_pcs=7, use_rep='X_pca')
+sc.tl.leiden(adata_human, resolution=0.6)
+sc.tl.tsne(adata_human, perplexity=30, n_pcs=7)
+sc.pl.tsne(adata_human, color = ["leiden", "gene_proportion", "n_genes_mouse"])
+plt.figure(figsize=(5, 3))
+sns.barplot(x='leiden', y='gene_proportion', data=adata_human.obs, ci="sd")
+
+plt.xlabel('Leiden Group')
+plt.ylabel('mean gene_proportion')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+plt.show()
+gene_proportion = adata_human.obs['gene_proportion']
+
+plt.figure(figsize=(10, 6))
+
+sns.histplot(gene_proportion, bins=30, kde=True, color='skyblue', edgecolor='black')
+
+plt.title('Histogram of Gene Proportion', fontsize=14)
+plt.xlabel('Gene Proportion ', fontsize=12)
+plt.ylabel('Frequency', fontsize=12)
+plt.tight_layout()
+
+plt.show()
+n_genes_human = adata_human.obs['n_genes_human']
+
+plt.figure(figsize=(10, 6))
+sns.regplot(x=n_genes_human, y=gene_proportion, scatter_kws={'s': 20, 'color': 'blue'}, line_kws={'color': 'red'})
+
+plt.title('Gene Proportion and Number of human Genes', fontsize=14)
+plt.xlabel('Number of Genes', fontsize=12)
+plt.ylabel('Gene Proportion', fontsize=12)
+plt.tight_layout()
+
+plt.show()
+
+adata_human.obs['gene_proportion_below_3_3'] = adata_human.obs['gene_proportion'] < 3.3
+sc.pl.tsne(adata_human, color='gene_proportion_below_3_3')
